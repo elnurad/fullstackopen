@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
-const Title = props => <div>{props.text}</div>
+const Title = props => <h1>{props.text}</h1>
 
 const Buttons = (props) => <button onClick={props.handleClick}>{props.text}</button>
 
@@ -18,29 +18,16 @@ const Statistics = (props) => {
    <div>
       <table>
         <tbody>
-        
-      <Statistic statisticName="good" statisticsValue={ good < 1 ? null : good } />
-        
-        
-      <Statistic statisticName="neutral" statisticsValue={ neutral < 1 ? null : neutral }/>
-      
-      
-      <Statistic statisticName="bad" statisticsValue={ bad < 1 ? null : bad } />
-      
-      
-      <Statistic statisticName="All" statisticsValue={all} />
-      
-      
-      <Statistic statisticName="Average" statisticsValue={average} />
-      
-      
-      <Statistic statisticName="Positive" statisticsValue={positives} />
-      
+          <Statistic statisticName="good" statisticsValue={ good < 1 ? null : good } />
+          <Statistic statisticName="neutral" statisticsValue={ neutral < 1 ? null : neutral }/>
+          <Statistic statisticName="bad" statisticsValue={ bad < 1 ? null : bad } />
+          <Statistic statisticName="All" statisticsValue={all} />
+          <Statistic statisticName="Average" statisticsValue={average} />
+          <Statistic statisticName="Positive" statisticsValue={positives + "%"} />
         </tbody>
       </table>
-      </div>
-    
-  )
+    </div>
+    )
 }
 
 
@@ -66,11 +53,9 @@ const App = () => {
     <div>
       <Title text="Give Feedback" />
       <Button good={good} bad={bad} neutral={neutral} setGood={setGood} setNeutral={setNeutral} setBad={setBad} />
-      
       <Title text="Statistics" />
-        { good + bad +neutral < 1 ? <h1>{placeholder}</h1> : <Statistics good={good} neutral={neutral} bad={bad} />
+        { good + bad +neutral < 1 ? <p>{placeholder}</p> : <Statistics good={good} neutral={neutral} bad={bad} />
       }
-      
     </div>
   )
 }
