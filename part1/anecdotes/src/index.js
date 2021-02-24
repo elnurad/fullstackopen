@@ -4,24 +4,51 @@ import ReactDOM from 'react-dom'
 const Button = (props) => {
   
   return(
-    <button onClick={props.randomGenerator}>next anecdote</button>
+    <button onClick={props.actionOnClick}>{props.text}</button>
+  )
+}
+
+const Title = (props) =>{
+  return(
+    <h3>{props.title}</h3>
+  )
+}
+
+const Points = (props) => {
+  return(
+    <p>has {props.points} votes</p>
   )
 }
 
 const App = (props) => {
   const [selected, setSelected] = useState(0)
   
+  const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
+
   const randomGenerator = () => {
     const randomNumber = Math.floor(Math.random()*anecdotes.length)
-    console.log(randomNumber)
     setSelected(randomNumber)
-    console.log(selected)
+  }
+  
+  
+  const vote = () =>{
+    const votesCopy = [...votes]
+    votesCopy[selected] += 1
+    setVotes(votesCopy)    
   }
 
   return (
     <div>
+      <Title title={"Anecdote of the day:"}/>
       {props.anecdotes[selected]}
-      <div><Button randomGenerator={randomGenerator}/></div>
+      <Points points={votes[selected]}/>
+      <div>
+        <Button actionOnClick={vote} text={"vote"} />
+        <Button actionOnClick={randomGenerator} text={"next anecdote"} />
+      <Title title={"Anecdote with most votes:"} />
+      {props.anecdotes[votes.indexOf(Math.max(...votes))]}
+      <Points points={Math.max(...votes)}/>
+      </div>
     </div>
   )
 }
